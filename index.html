@@ -15,6 +15,19 @@ overflow:hidden;
 background:#000;
 }
 
+/* wrapper for shake */
+#wrapper.shake{
+animation:shake 0.5s;
+}
+
+@keyframes shake{
+0%{transform:translate(0,0);}
+25%{transform:translate(8px,-8px);}
+50%{transform:translate(-8px,8px);}
+75%{transform:translate(8px,8px);}
+100%{transform:translate(0,0);}
+}
+
 /* collage background */
 .background{
 position:fixed;
@@ -34,15 +47,15 @@ height:100%;
 object-fit:cover;
 }
 
-/* main card */
+/* card */
 .card{
-margin-top:8vh;
+margin-top:7vh;
 background:linear-gradient(135deg,#ff4d6d,#ff85a2);
-padding:50px;
+padding:60px;
 border-radius:25px;
 display:inline-block;
 box-shadow:0 0 40px rgba(255,0,80,0.6);
-min-width:420px;
+min-width:450px;
 animation:fadeIn 1s;
 position:relative;
 }
@@ -50,6 +63,13 @@ position:relative;
 @keyframes fadeIn{
 from{opacity:0;transform:scale(.9);}
 to{opacity:1;transform:scale(1);}
+}
+
+/* BIG QUESTION */
+#question{
+font-size:32px;
+margin-bottom:25px;
+animation:fadeIn 0.7s;
 }
 
 button{
@@ -65,6 +85,13 @@ color:#ff4d6d;
 font-weight:bold;
 }
 
+/* large responsive video */
+video{
+width:80vw;
+max-width:900px;
+border-radius:20px;
+}
+
 /* hearts */
 .heart{
 position:fixed;
@@ -78,20 +105,6 @@ animation:fall 6s linear infinite;
 100%{transform:translateY(100vh);}
 }
 
-/* shake */
-.shake{
-animation:shake 0.4s;
-}
-
-@keyframes shake{
-0%{transform:translate(0);}
-25%{transform:translate(5px,5px);}
-50%{transform:translate(-5px,-5px);}
-75%{transform:translate(5px,-5px);}
-100%{transform:translate(0);}
-}
-
-.hidden{display:none;}
 .firework{
 position:fixed;
 font-size:40px;
@@ -102,10 +115,14 @@ animation:explode 1s forwards;
 0%{transform:scale(0);}
 100%{transform:scale(3);opacity:0;}
 }
+
+.hidden{display:none;}
 </style>
 </head>
 
 <body>
+
+<div id="wrapper">
 
 <div class="background" id="bg"></div>
 
@@ -124,7 +141,7 @@ animation:explode 1s forwards;
 
 <div class="card hidden" id="final">
 <h1>I knew it Baby Girl ❤️</h1>
-<video id="video" width="520" controls>
+<video id="video" controls>
 <source src="love.mp4" type="video/mp4">
 </video>
 </div>
@@ -133,9 +150,11 @@ animation:explode 1s forwards;
 <source src="music.mp3" type="audio/mp3">
 </audio>
 
+</div>
+
 <script>
 
-/* background images */
+/* background */
 const bg=document.getElementById("bg");
 for(let i=1;i<=54;i++){
 let img=document.createElement("img");
@@ -200,11 +219,11 @@ btn.style.left=Math.random()*70+"%";
 btn.style.top=Math.random()*70+"%";
 }
 
-/* YES clicked */
+/* YES */
 function yesAnswer(){
 
-document.body.classList.add("shake");
-setTimeout(()=>document.body.classList.remove("shake"),600);
+document.getElementById("wrapper").classList.add("shake");
+setTimeout(()=>document.getElementById("wrapper").classList.remove("shake"),600);
 
 document.getElementById("proposal").classList.add("hidden");
 document.getElementById("final").classList.remove("hidden");
@@ -216,7 +235,6 @@ setInterval(createHeart,250);
 setInterval(createFirework,600);
 }
 
-/* hearts */
 function createHeart(){
 let heart=document.createElement("div");
 heart.className="heart";
@@ -226,7 +244,6 @@ document.body.appendChild(heart);
 setTimeout(()=>heart.remove(),6000);
 }
 
-/* fireworks */
 function createFirework(){
 let f=document.createElement("div");
 f.className="firework";
