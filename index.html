@@ -28,35 +28,38 @@ body.shake{
   100%{transform:translate(0,0);}
 }
 
-/* background grid */
+/* background grid 6x9 */
 .background{
   position:fixed;
-  top:0; left:0;
-  width:100%; height:100%;
+  top:0;
+  left:0;
+  width:100%;
+  height:100%;
   display:grid;
-  grid-template-columns:repeat(6,1fr);
-  grid-template-rows:repeat(9,1fr);
+  grid-template-columns: repeat(6, 1fr); /* 6 columns */
+  grid-template-rows: repeat(9, 1fr);    /* 9 rows */
+  gap:1px; /* small gap for mosaic effect */
   z-index:-1;
 }
 .background img{
-  width:100%; height:100%;
-  object-fit:cover;
+  width:100%;
+  height:100%;
+  object-fit:cover; /* crop and fill each cell */
 }
 
 /* card style with transparency */
 .card{
   margin-top:5vh;
-  background: rgba(255, 77, 109, 0.50); /* pinkish with 75% opacity */
-  padding:60px;
+  background: rgba(255, 77, 109, 0.5); /* 50% opacity */
+  padding:50px;
   border-radius:25px;
   display:inline-block;
-  min-width:450px;
-  max-width:90vw;
-  box-shadow:0 0 50px rgba(255,0,80,0.6);
+  min-width:400px;
+  max-width:80vw;
+  box-shadow:0 0 30px rgba(255,0,80,0.5);
   position:relative;
   animation:fadeIn 0.8s;
 }
-
 
 /* fade-in animation */
 @keyframes fadeIn{
@@ -79,7 +82,7 @@ button{
   font-size:20px;
   border:none;
   border-radius:15px;
-  background:white;
+  background: rgba(255,255,255,0.85);
   color:#ff4d6d;
   font-weight:bold;
   cursor:pointer;
@@ -128,8 +131,15 @@ video{
 
 <div class="background" id="bg"></div>
 
+<!-- Landing Card -->
+<div class="card" id="landing">
+  <h1>Hey Baby Girl…</h1>
+  <h2>Are you ready for a special Valentine?</h2>
+  <button onclick="startQuiz()">Start the Love Quiz ❤️</button>
+</div>
+
 <!-- Quiz Card -->
-<div class="card" id="quiz">
+<div class="card hidden" id="quiz">
   <h2 id="question"></h2>
   <div id="answers"></div>
 </div>
@@ -153,12 +163,18 @@ video{
 <audio id="music"><source src="music.mp3" type="audio/mp3"></audio>
 
 <script>
-/* Load background images */
+/* Load 54 background images */
 const bg=document.getElementById("bg");
 for(let i=1;i<=54;i++){
   let img=document.createElement("img");
   img.src=i+".jpg";
   bg.appendChild(img);
+}
+
+/* Show landing -> start quiz */
+function startQuiz(){
+  document.getElementById("landing").classList.add("hidden");
+  document.getElementById("quiz").classList.remove("hidden");
 }
 
 /* Quiz questions */
@@ -246,4 +262,3 @@ function createFirework(){
 </script>
 </body>
 </html>
-
