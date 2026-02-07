@@ -7,113 +7,116 @@
 
 <style>
 body{
-margin:0;
-font-family:Arial, sans-serif;
-text-align:center;
-color:white;
-overflow:hidden;
-background:#000;
+  margin:0;
+  font-family:Arial, sans-serif;
+  text-align:center;
+  color:white;
+  overflow:hidden;
+  background:#000;
+  transition: transform 0.05s;
 }
 
-/* wrapper for shake */
-#wrapper.shake{
-animation:shake 0.5s;
+/* shake animation */
+body.shake{
+  animation:shake 0.5s;
 }
-
 @keyframes shake{
-0%{transform:translate(0,0);}
-25%{transform:translate(8px,-8px);}
-50%{transform:translate(-8px,8px);}
-75%{transform:translate(8px,8px);}
-100%{transform:translate(0,0);}
+  0%{transform:translate(0,0);}
+  25%{transform:translate(10px,-10px);}
+  50%{transform:translate(-10px,10px);}
+  75%{transform:translate(10px,10px);}
+  100%{transform:translate(0,0);}
 }
 
-/* collage background */
+/* background grid */
 .background{
-position:fixed;
-top:0;
-left:0;
-width:100%;
-height:100%;
-display:grid;
-grid-template-columns:repeat(6,1fr);
-grid-template-rows:repeat(9,1fr);
-z-index:-1;
+  position:fixed;
+  top:0; left:0;
+  width:100%; height:100%;
+  display:grid;
+  grid-template-columns:repeat(6,1fr);
+  grid-template-rows:repeat(9,1fr);
+  z-index:-1;
 }
-
 .background img{
-width:100%;
-height:100%;
-object-fit:cover;
+  width:100%; height:100%;
+  object-fit:cover;
 }
 
-/* card */
+/* card style */
 .card{
-margin-top:7vh;
-background:linear-gradient(135deg,#ff4d6d,#ff85a2);
-padding:60px;
-border-radius:25px;
-display:inline-block;
-box-shadow:0 0 40px rgba(255,0,80,0.6);
-min-width:450px;
-animation:fadeIn 1s;
-position:relative;
+  margin-top:5vh;
+  background:linear-gradient(135deg,#ff4d6d,#ff85a2);
+  padding:60px;
+  border-radius:25px;
+  display:inline-block;
+  min-width:450px;
+  max-width:90vw;
+  box-shadow:0 0 50px rgba(255,0,80,0.6);
+  position:relative;
+  animation:fadeIn 0.8s;
 }
 
+/* fade-in animation */
 @keyframes fadeIn{
-from{opacity:0;transform:scale(.9);}
-to{opacity:1;transform:scale(1);}
+  from{opacity:0; transform:scale(0.9);}
+  to{opacity:1; transform:scale(1);}
 }
 
-/* BIG QUESTION */
+/* question text */
 #question{
-font-size:32px;
-margin-bottom:25px;
-animation:fadeIn 0.7s;
+  font-size:34px;
+  margin-bottom:25px;
+  animation:fadeIn 0.5s;
 }
 
+/* buttons */
 button{
-display:block;
-margin:15px auto;
-padding:15px 25px;
-border:none;
-border-radius:12px;
-font-size:20px;
-cursor:pointer;
-background:white;
-color:#ff4d6d;
-font-weight:bold;
+  display:block;
+  margin:15px auto;
+  padding:18px 28px;
+  font-size:20px;
+  border:none;
+  border-radius:15px;
+  background:white;
+  color:#ff4d6d;
+  font-weight:bold;
+  cursor:pointer;
+  transition: transform 0.2s;
+}
+button:hover{
+  transform:scale(1.1);
 }
 
-/* large responsive video */
+/* final video */
 video{
-width:80vw;
-max-width:900px;
-border-radius:20px;
+  width:80vw;
+  max-width:900px;
+  border-radius:20px;
+  margin-top:20px;
 }
 
 /* hearts */
 .heart{
-position:fixed;
-font-size:26px;
-top:-20px;
-animation:fall 6s linear infinite;
+  position:fixed;
+  font-size:30px;
+  top:-20px;
+  animation:fall 6s linear infinite;
 }
-
 @keyframes fall{
-0%{transform:translateY(-20px);}
-100%{transform:translateY(100vh);}
+  0%{transform:translateY(-20px);}
+  100%{transform:translateY(100vh);}
 }
 
+/* fireworks */
 .firework{
-position:fixed;
-font-size:40px;
-animation:explode 1s forwards;
+  position:fixed;
+  font-size:40px;
+  animation:explode 1s forwards;
 }
-
 @keyframes explode{
-0%{transform:scale(0);}
-100%{transform:scale(3);opacity:0;}
+  0%{transform:scale(0);}
+  100%{transform:scale(3);opacity:0;}
 }
 
 .hidden{display:none;}
@@ -122,138 +125,123 @@ animation:explode 1s forwards;
 
 <body>
 
-<div id="wrapper">
-
 <div class="background" id="bg"></div>
 
+<!-- Quiz Card -->
 <div class="card" id="quiz">
-<h2 id="question"></h2>
-<div id="answers"></div>
+  <h2 id="question"></h2>
+  <div id="answers"></div>
 </div>
 
+<!-- Proposal Card -->
 <div class="card hidden" id="proposal">
-<h1>Hello My Lovie Dovie<br>JAYDE CRIVELARO PENDER</h1>
-<h2>Will you be my FOREVER VALENTINE?</h2>
-
-<button onclick="yesAnswer()">YES ❤️</button>
-<button id="noBtn" onmouseover="moveNo()">NO 😜</button>
+  <h1>Hello My Lovie Dovie<br>JAYDE CRIVELARO PENDER</h1>
+  <h2>Will you be my FOREVER VALENTINE?</h2>
+  <button onclick="yesAnswer()">YES ❤️</button>
+  <button id="noBtn" onmouseover="moveNo()">NO 😜</button>
 </div>
 
+<!-- Final Card -->
 <div class="card hidden" id="final">
-<h1>I knew it Baby Girl ❤️</h1>
-<video id="video" controls>
-<source src="love.mp4" type="video/mp4">
-</video>
+  <h1>I knew it Baby Girl ❤️</h1>
+  <video id="video" controls>
+    <source src="love.mp4" type="video/mp4">
+  </video>
 </div>
 
-<audio id="music">
-<source src="music.mp3" type="audio/mp3">
-</audio>
-
-</div>
+<audio id="music"><source src="music.mp3" type="audio/mp3"></audio>
 
 <script>
-
-/* background */
+/* Load background images */
 const bg=document.getElementById("bg");
 for(let i=1;i<=54;i++){
-let img=document.createElement("img");
-img.src=i+".jpg";
-bg.appendChild(img);
+  let img=document.createElement("img");
+  img.src=i+".jpg";
+  bg.appendChild(img);
 }
 
-/* quiz */
+/* Quiz questions */
 const questions=[
-{
-q:"When did we get to know each other and make love?",
-a:["1st June 2024","1st July 2025","1st June 2025","1st July 2024"],
-correct:3
-},
-{
-q:"Where was our first road trip to?",
-a:["Apollo Bay","Bells Beach","Toolangi","You Yang Park"],
-correct:1
-},
-{
-q:"Where was our first getaway?",
-a:["Toolangi","Apollo Bay","Nepal","Italy"],
-correct:0
-}
+{q:"When did we get to know each other and make love?",
+ a:["1st June 2024","1st July 2025","1st June 2025","1st July 2024"],
+ correct:3},
+{q:"Where was our first road trip to?",
+ a:["Apollo Bay","Bells Beach","Toolangi","You Yang Park"],
+ correct:1},
+{q:"Where was our first getaway?",
+ a:["Toolangi","Apollo Bay","Nepal","Italy"],
+ correct:0}
 ];
 
 let current=0;
-
 function showQuestion(){
-let q=questions[current];
-document.getElementById("question").innerText=q.q;
-let answersDiv=document.getElementById("answers");
-answersDiv.innerHTML="";
-q.a.forEach((text,i)=>{
-let btn=document.createElement("button");
-btn.innerText=text;
-btn.onclick=()=>checkAnswer(i);
-answersDiv.appendChild(btn);
-});
+  let q=questions[current];
+  document.getElementById("question").innerText=q.q;
+  let answersDiv=document.getElementById("answers");
+  answersDiv.innerHTML="";
+  q.a.forEach((text,i)=>{
+    let btn=document.createElement("button");
+    btn.innerText=text;
+    btn.onclick=()=>checkAnswer(i);
+    answersDiv.appendChild(btn);
+  });
 }
 showQuestion();
 
 function checkAnswer(i){
-if(i===questions[current].correct){
-current++;
-if(current<questions.length){
-showQuestion();
-}else{
-document.getElementById("quiz").classList.add("hidden");
-document.getElementById("proposal").classList.remove("hidden");
-}
-}else{
-alert("Try again baby ❤️");
-}
+  if(i===questions[current].correct){
+    current++;
+    if(current<questions.length){ showQuestion(); }
+    else{
+      document.getElementById("quiz").classList.add("hidden");
+      document.getElementById("proposal").classList.remove("hidden");
+    }
+  }else{ alert("Try again baby ❤️"); }
 }
 
-/* NO run */
+/* NO button runs away */
 function moveNo(){
-let btn=document.getElementById("noBtn");
-btn.style.position="absolute";
-btn.style.left=Math.random()*70+"%";
-btn.style.top=Math.random()*70+"%";
+  let btn=document.getElementById("noBtn");
+  btn.style.position="absolute";
+  btn.style.left=Math.random()*70+"%";
+  btn.style.top=Math.random()*70+"%";
 }
 
-/* YES */
+/* YES clicked */
 function yesAnswer(){
+  document.body.classList.add("shake");
+  setTimeout(()=>document.body.classList.remove("shake"),500);
 
-document.getElementById("wrapper").classList.add("shake");
-setTimeout(()=>document.getElementById("wrapper").classList.remove("shake"),600);
+  document.getElementById("proposal").classList.add("hidden");
+  document.getElementById("final").classList.remove("hidden");
 
-document.getElementById("proposal").classList.add("hidden");
-document.getElementById("final").classList.remove("hidden");
+  document.getElementById("music").play();
+  document.getElementById("video").play();
 
-document.getElementById("music").play();
-document.getElementById("video").play();
-
-setInterval(createHeart,250);
-setInterval(createFirework,600);
+  setInterval(createHeart,250);
+  setInterval(createFirework,600);
 }
 
+/* Hearts falling */
 function createHeart(){
-let heart=document.createElement("div");
-heart.className="heart";
-heart.innerHTML="❤️";
-heart.style.left=Math.random()*100+"vw";
-document.body.appendChild(heart);
-setTimeout(()=>heart.remove(),6000);
+  let heart=document.createElement("div");
+  heart.className="heart";
+  heart.innerHTML="❤️";
+  heart.style.left=Math.random()*100+"vw";
+  document.body.appendChild(heart);
+  setTimeout(()=>heart.remove(),6000);
 }
 
+/* Fireworks */
 function createFirework(){
-let f=document.createElement("div");
-f.className="firework";
-f.innerHTML="💥";
-f.style.left=Math.random()*100+"vw";
-f.style.top=Math.random()*100+"vh";
-document.body.appendChild(f);
-setTimeout(()=>f.remove(),1000);
+  let f=document.createElement("div");
+  f.className="firework";
+  f.innerHTML="💥";
+  f.style.left=Math.random()*100+"vw";
+  f.style.top=Math.random()*100+"vh";
+  document.body.appendChild(f);
+  setTimeout(()=>f.remove(),1000);
 }
-
 </script>
 </body>
 </html>
