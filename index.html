@@ -28,7 +28,7 @@ body.shake{
   100%{transform:translate(0,0);}
 }
 
-/* background grid 6x9 */
+/* background collage container */
 .background{
   position:fixed;
   top:0;
@@ -36,21 +36,25 @@ body.shake{
   width:100%;
   height:100%;
   display:grid;
-  grid-template-columns: repeat(6, 1fr); /* 6 columns */
-  grid-template-rows: repeat(9, 1fr);    /* 9 rows */
-  gap:1px; /* small gap for mosaic effect */
+  grid-template-columns: repeat(auto-fit, minmax(80px, 1fr));
+  grid-auto-rows: minmax(60px, 1fr);
+  gap:1px;
   z-index:-1;
 }
 .background img{
   width:100%;
   height:100%;
-  object-fit:cover; /* crop and fill each cell */
+  object-fit:cover; /* ensures images fill their cells */
+  transition: transform 1s;
+}
+.background img:hover{
+  transform:scale(1.1); /* optional zoom on hover */
 }
 
 /* card style with transparency */
 .card{
   margin-top:5vh;
-  background: rgba(255, 77, 109, 0.5); /* 50% opacity */
+  background: rgba(255, 77, 109, 0.6); /* 60% opacity */
   padding:50px;
   border-radius:25px;
   display:inline-block;
@@ -262,3 +266,4 @@ function createFirework(){
 </script>
 </body>
 </html>
+
