@@ -52,20 +52,22 @@ body.shake{
   transform:scale(1.1);
 }
 
-/* ---------------- Cards ---------------- */
+/* ---------------- Fully Transparent Cards ---------------- */
 .card{
   margin-top:5vh;
-  background: rgba(255, 77, 109, 0.9); /* less transparent */
+  background: transparent; /* full transparency */
   padding:50px;
   border-radius:25px;
   display:inline-block;
   min-width:300px;
   max-width:80vw;
-  box-shadow:0 0 40px rgba(255,0,80,0.6);
+  box-shadow: none; /* remove shadow */
   position:relative;
   animation:fadeIn 0.8s;
   font-family: 'Segoe Script', cursive;
   text-align:center;
+  color:#ffe6f0; /* text color */
+  text-shadow: 2px 2px 5px #ff4d6d; /* subtle glow for readability */
 }
 
 /* fade-in animation */
@@ -80,7 +82,7 @@ body.shake{
   margin-bottom:30px;
   line-height:1.4;
   color:#ffe6f0;
-  text-shadow: 1px 1px 3px #ff4d6d;
+  text-shadow: 2px 2px 5px #ff4d6d;
 }
 
 /* ---------------- Buttons ---------------- */
@@ -91,15 +93,16 @@ button{
   font-size:22px;
   border:none;
   border-radius:20px;
-  background: rgba(255,255,255,0.9);
+  background: rgba(255,255,255,0.85);
   color:#ff3366;
   font-weight:bold;
   cursor:pointer;
-  transition: transform 0.2s, background 0.3s;
+  transition: transform 0.2s, background 0.3s, box-shadow 0.3s;
 }
 button:hover{
   transform:scale(1.1);
-  background: rgba(255, 200, 220, 0.95);
+  background: rgba(255,200,220,0.95);
+  box-shadow: 0 0 15px #ff4d6d; /* glow on hover */
 }
 
 /* ---------------- Headings ---------------- */
@@ -198,7 +201,7 @@ const bg=document.getElementById("bg");
 let totalImages=80; // Increase for more images
 for(let i=1;i<=totalImages;i++){
   let img=document.createElement("img");
-  img.src=i+".jpg"; // make sure images are named 1.jpg, 2.jpg, ..., totalImages
+  img.src=i+".jpg"; // images named 1.jpg, 2.jpg, ..., totalImages
   bg.appendChild(img);
 }
 
@@ -293,5 +296,3 @@ function createFirework(){
 </script>
 </body>
 </html>
-
-
