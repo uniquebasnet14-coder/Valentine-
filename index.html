@@ -12,6 +12,7 @@ font-family:Arial, sans-serif;
 text-align:center;
 color:white;
 overflow:hidden;
+background:#000;
 }
 
 /* collage background */
@@ -33,33 +34,42 @@ height:100%;
 object-fit:cover;
 }
 
-/* center card */
+/* main card */
 .card{
-margin-top:10vh;
-background:rgba(0,0,0,0.65);
-padding:30px;
-border-radius:20px;
+margin-top:8vh;
+background:linear-gradient(135deg,#ff4d6d,#ff85a2);
+padding:50px;
+border-radius:25px;
 display:inline-block;
+box-shadow:0 0 40px rgba(255,0,80,0.6);
+min-width:420px;
+animation:fadeIn 1s;
 position:relative;
+}
+
+@keyframes fadeIn{
+from{opacity:0;transform:scale(.9);}
+to{opacity:1;transform:scale(1);}
 }
 
 button{
 display:block;
-margin:10px auto;
-padding:12px 20px;
+margin:15px auto;
+padding:15px 25px;
 border:none;
-border-radius:10px;
-font-size:18px;
+border-radius:12px;
+font-size:20px;
 cursor:pointer;
-background:#ff4d6d;
-color:white;
+background:white;
+color:#ff4d6d;
+font-weight:bold;
 }
 
 /* hearts */
 .heart{
 position:fixed;
+font-size:26px;
 top:-20px;
-font-size:24px;
 animation:fall 6s linear infinite;
 }
 
@@ -68,22 +78,42 @@ animation:fall 6s linear infinite;
 100%{transform:translateY(100vh);}
 }
 
+/* shake */
+.shake{
+animation:shake 0.4s;
+}
+
+@keyframes shake{
+0%{transform:translate(0);}
+25%{transform:translate(5px,5px);}
+50%{transform:translate(-5px,-5px);}
+75%{transform:translate(5px,-5px);}
+100%{transform:translate(0);}
+}
+
 .hidden{display:none;}
+.firework{
+position:fixed;
+font-size:40px;
+animation:explode 1s forwards;
+}
+
+@keyframes explode{
+0%{transform:scale(0);}
+100%{transform:scale(3);opacity:0;}
+}
 </style>
 </head>
 
 <body>
 
-<!-- BACKGROUND GRID -->
 <div class="background" id="bg"></div>
 
-<!-- QUIZ -->
 <div class="card" id="quiz">
 <h2 id="question"></h2>
 <div id="answers"></div>
 </div>
 
-<!-- PROPOSAL -->
 <div class="card hidden" id="proposal">
 <h1>Hello My Lovie Dovie<br>JAYDE CRIVELARO PENDER</h1>
 <h2>Will you be my FOREVER VALENTINE?</h2>
@@ -92,10 +122,9 @@ animation:fall 6s linear infinite;
 <button id="noBtn" onmouseover="moveNo()">NO 😜</button>
 </div>
 
-<!-- FINAL -->
 <div class="card hidden" id="final">
 <h1>I knew it Baby Girl ❤️</h1>
-<video id="video" width="320" controls>
+<video id="video" width="520" controls>
 <source src="love.mp4" type="video/mp4">
 </video>
 </div>
@@ -106,7 +135,7 @@ animation:fall 6s linear infinite;
 
 <script>
 
-/* load background images */
+/* background images */
 const bg=document.getElementById("bg");
 for(let i=1;i<=54;i++){
 let img=document.createElement("img");
@@ -114,7 +143,7 @@ img.src=i+".jpg";
 bg.appendChild(img);
 }
 
-/* quiz questions */
+/* quiz */
 const questions=[
 {
 q:"When did we get to know each other and make love?",
@@ -147,6 +176,7 @@ btn.onclick=()=>checkAnswer(i);
 answersDiv.appendChild(btn);
 });
 }
+showQuestion();
 
 function checkAnswer(i){
 if(i===questions[current].correct){
@@ -162,42 +192,51 @@ alert("Try again baby ❤️");
 }
 }
 
-showQuestion();
-
-/* NO button runs away */
+/* NO run */
 function moveNo(){
 let btn=document.getElementById("noBtn");
-let x=Math.random()*window.innerWidth*0.7;
-let y=Math.random()*window.innerHeight*0.7;
-
 btn.style.position="absolute";
-btn.style.left=x+"px";
-btn.style.top=y+"px";
+btn.style.left=Math.random()*70+"%";
+btn.style.top=Math.random()*70+"%";
 }
 
 /* YES clicked */
 function yesAnswer(){
+
+document.body.classList.add("shake");
+setTimeout(()=>document.body.classList.remove("shake"),600);
+
 document.getElementById("proposal").classList.add("hidden");
 document.getElementById("final").classList.remove("hidden");
 
 document.getElementById("music").play();
 document.getElementById("video").play();
 
-setInterval(createHeart,300);
+setInterval(createHeart,250);
+setInterval(createFirework,600);
 }
 
-/* falling hearts */
+/* hearts */
 function createHeart(){
 let heart=document.createElement("div");
 heart.className="heart";
 heart.innerHTML="❤️";
 heart.style.left=Math.random()*100+"vw";
-heart.style.animationDuration=3+Math.random()*3+"s";
 document.body.appendChild(heart);
 setTimeout(()=>heart.remove(),6000);
 }
 
-</script>
+/* fireworks */
+function createFirework(){
+let f=document.createElement("div");
+f.className="firework";
+f.innerHTML="💥";
+f.style.left=Math.random()*100+"vw";
+f.style.top=Math.random()*100+"vh";
+document.body.appendChild(f);
+setTimeout(()=>f.remove(),1000);
+}
 
+</script>
 </body>
 </html>
