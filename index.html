@@ -6,6 +6,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
 <style>
+/* ---------------- Body ---------------- */
 body{
   margin:0;
   font-family:Arial, sans-serif;
@@ -28,7 +29,7 @@ body.shake{
   100%{transform:translate(0,0);}
 }
 
-/* background collage container */
+/* ---------------- Background Collage ---------------- */
 .background{
   position:fixed;
   top:0;
@@ -36,7 +37,7 @@ body.shake{
   width:100%;
   height:100%;
   display:grid;
-  grid-template-columns: repeat(auto-fit, minmax(80px, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(100px, 1fr)); /* wider images */
   grid-auto-rows: minmax(60px, 1fr);
   gap:1px;
   z-index:-1;
@@ -44,25 +45,27 @@ body.shake{
 .background img{
   width:100%;
   height:100%;
-  object-fit:cover; /* ensures images fill their cells */
+  object-fit:cover;
   transition: transform 1s;
 }
 .background img:hover{
-  transform:scale(1.1); /* optional zoom on hover */
+  transform:scale(1.1);
 }
 
-/* card style with transparency */
+/* ---------------- Cards ---------------- */
 .card{
   margin-top:5vh;
-  background: rgba(255, 77, 109, 0.6); /* 60% opacity */
+  background: rgba(255, 77, 109, 0.6); /* less transparent */
   padding:50px;
   border-radius:25px;
   display:inline-block;
-  min-width:400px;
+  min-width:300px;
   max-width:80vw;
-  box-shadow:0 0 30px rgba(255,0,80,0.5);
+  box-shadow:0 0 40px rgba(255,0,80,0.6);
   position:relative;
   animation:fadeIn 0.8s;
+  font-family: 'Segoe Script', cursive;
+  text-align:center;
 }
 
 /* fade-in animation */
@@ -71,40 +74,56 @@ body.shake{
   to{opacity:1; transform:scale(1);}
 }
 
-/* question text */
+/* ---------------- Quiz Text ---------------- */
 #question{
-  font-size:32px;
-  margin-bottom:25px;
-  animation:fadeIn 0.5s;
+  font-size:36px;
+  margin-bottom:30px;
+  line-height:1.4;
+  color:#ffe6f0;
+  text-shadow: 1px 1px 3px #ff4d6d;
 }
 
-/* buttons */
+/* ---------------- Buttons ---------------- */
 button{
   display:block;
-  margin:15px auto;
-  padding:16px 28px;
-  font-size:20px;
+  margin:18px auto;
+  padding:18px 30px;
+  font-size:22px;
   border:none;
-  border-radius:15px;
-  background: rgba(255,255,255,0.85);
-  color:#ff4d6d;
+  border-radius:20px;
+  background: rgba(255,255,255,0.9);
+  color:#ff3366;
   font-weight:bold;
   cursor:pointer;
-  transition: transform 0.2s;
+  transition: transform 0.2s, background 0.3s;
 }
 button:hover{
   transform:scale(1.1);
+  background: rgba(255, 200, 220, 0.95);
 }
 
-/* final video */
-video{
-  width:80vw;
-  max-width:900px;
-  border-radius:20px;
-  margin-top:20px;
+/* ---------------- Headings ---------------- */
+.card h1, .card h2{
+  font-family: 'Segoe Script', cursive;
+  color:#ff99bb;
+  text-shadow: 2px 2px 6px #ff4d6d;
 }
 
-/* hearts */
+/* ---------------- Proposal Card Extras ---------------- */
+#proposal h2{
+  font-size:34px;
+}
+#proposal button{
+  font-size:24px;
+}
+#proposal h1::after{
+  content:" 💖😘💕";
+}
+#proposal h2::after{
+  content:" 😍💘";
+}
+
+/* ---------------- Hearts & Fireworks ---------------- */
 .heart{
   position:fixed;
   font-size:30px;
@@ -115,16 +134,22 @@ video{
   0%{transform:translateY(-20px);}
   100%{transform:translateY(100vh);}
 }
-
-/* fireworks */
 .firework{
   position:fixed;
   font-size:40px;
-  animation:explode 3s forwards;
+  animation:explode 1s forwards;
 }
 @keyframes explode{
   0%{transform:scale(0);}
   100%{transform:scale(3);opacity:0;}
+}
+
+/* ---------------- Final Video ---------------- */
+video{
+  width:80vw;
+  max-width:900px;
+  border-radius:20px;
+  margin-top:20px;
 }
 
 .hidden{display:none;}
@@ -133,22 +158,23 @@ video{
 
 <body>
 
+<!-- ---------------- Background ---------------- -->
 <div class="background" id="bg"></div>
 
-<!-- Landing Card -->
+<!-- ---------------- Landing Card ---------------- -->
 <div class="card" id="landing">
   <h1>Hey Baby Girl…</h1>
-  <h2>Are you ready for a special Valentine?</h2>
+  <h2>Are you ready for a special Valentine? 💖</h2>
   <button onclick="startQuiz()">Start the Love Quiz ❤️</button>
 </div>
 
-<!-- Quiz Card -->
+<!-- ---------------- Quiz Card ---------------- -->
 <div class="card hidden" id="quiz">
   <h2 id="question"></h2>
   <div id="answers"></div>
 </div>
 
-<!-- Proposal Card -->
+<!-- ---------------- Proposal Card ---------------- -->
 <div class="card hidden" id="proposal">
   <h1>Hello My Lovie Dovie<br>JAYDE CRIVELARO PENDER</h1>
   <h2>Will you be my FOREVER VALENTINE?</h2>
@@ -156,7 +182,7 @@ video{
   <button id="noBtn" onmouseover="moveNo()">NO 😜</button>
 </div>
 
-<!-- Final Card -->
+<!-- ---------------- Final Card ---------------- -->
 <div class="card hidden" id="final">
   <h1>I knew it Baby Girl ❤️</h1>
   <video id="video" controls>
@@ -167,30 +193,31 @@ video{
 <audio id="music"><source src="music.mp3" type="audio/mp3"></audio>
 
 <script>
-/* Load 54 background images */
+/* ---------------- Load Background Images ---------------- */
 const bg=document.getElementById("bg");
-for(let i=1;i<=54;i++){
+let totalImages=80; // Increase for more images
+for(let i=1;i<=totalImages;i++){
   let img=document.createElement("img");
-  img.src=i+".jpg";
+  img.src=i+".jpg"; // make sure images are named 1.jpg, 2.jpg, ..., totalImages
   bg.appendChild(img);
 }
 
-/* Show landing -> start quiz */
+/* ---------------- Show Landing -> Start Quiz ---------------- */
 function startQuiz(){
   document.getElementById("landing").classList.add("hidden");
   document.getElementById("quiz").classList.remove("hidden");
 }
 
-/* Quiz questions */
+/* ---------------- Quiz Questions ---------------- */
 const questions=[
-{q:"When did we get to know each other and make love?",
- a:["1st June 2024","1st July 2025","1st June 2025","1st July 2024"],
+{q:"💖 When did we first feel the sparks between us? 😘",
+ a:["1st June 2024 💕","1st July 2025 😍","1st June 2025 💌","1st July 2024 ❤️"],
  correct:3},
-{q:"Where was our first road trip to?",
- a:["Apollo Bay","Bells Beach","Toolangi","You Yang Park"],
+{q:"🌊 Where was our first road trip adventure? 💖",
+ a:["Apollo Bay 🐚","Bells Beach 🌅","Toolangi 🌲","You Yang Park 🌿"],
  correct:1},
-{q:"Where was our first getaway?",
- a:["Toolangi","Apollo Bay","Nepal","Italy"],
+{q:"✈️ Where was our first romantic getaway? 💕",
+ a:["Toolangi 🌳","Apollo Bay 🏖️","Nepal 🏔️","Italy 🍝"],
  correct:0}
 ];
 
@@ -220,7 +247,7 @@ function checkAnswer(i){
   }else{ alert("Try again baby ❤️"); }
 }
 
-/* NO button runs away */
+/* ---------------- NO Button Runs Away ---------------- */
 function moveNo(){
   let btn=document.getElementById("noBtn");
   btn.style.position="absolute";
@@ -228,7 +255,7 @@ function moveNo(){
   btn.style.top=Math.random()*70+"%";
 }
 
-/* YES clicked */
+/* ---------------- YES Button ---------------- */
 function yesAnswer(){
   document.body.classList.add("shake");
   setTimeout(()=>document.body.classList.remove("shake"),500);
@@ -243,7 +270,7 @@ function yesAnswer(){
   setInterval(createFirework,600);
 }
 
-/* Hearts falling */
+/* ---------------- Falling Hearts ---------------- */
 function createHeart(){
   let heart=document.createElement("div");
   heart.className="heart";
@@ -253,7 +280,7 @@ function createHeart(){
   setTimeout(()=>heart.remove(),6000);
 }
 
-/* Fireworks */
+/* ---------------- Fireworks ---------------- */
 function createFirework(){
   let f=document.createElement("div");
   f.className="firework";
@@ -266,5 +293,3 @@ function createFirework(){
 </script>
 </body>
 </html>
-
-
