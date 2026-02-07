@@ -37,7 +37,7 @@ body.shake{
   width:100%;
   height:100%;
   display:grid;
-  grid-template-columns: repeat(auto-fit, minmax(120px, 1fr)); /* wider images */
+  grid-template-columns: repeat(auto-fit, minmax(80px, 1fr)); /* wider images */
   grid-auto-rows: minmax(60px, 1fr);
   gap:1px;
   z-index:-1;
@@ -77,12 +77,16 @@ body.shake{
 }
 
 /* ---------------- Quiz Text ---------------- */
-#question{
+#question {
   font-size:36px;
   margin-bottom:30px;
   line-height:1.4;
-  color:#ffe6f0;
-  text-shadow: 2px 2px 5px #ff4d6d;
+  color:#ff3366; /* make text pop */
+  background: rgba(255,255,255,0.9); /* white background for text only */
+  display: inline-block; /* so background fits text width */
+  padding:10px 20px; /* space around text */
+  border-radius:15px; /* rounded corners */
+  text-shadow: none; /* remove shadow since background is white */
 }
 
 /* ---------------- Buttons ---------------- */
@@ -296,3 +300,4 @@ function createFirework(){
 </script>
 </body>
 </html>
+
